@@ -41,11 +41,3 @@ This project aims to assist farmers by providing an innovative solution to detec
 - **Weather API**: OpenWeatherMap (for weather data)
 - **Hosting**: Heroku, Render, Vercel (for backend and ML model hosting)
 
-## Getting Started
-
-1. Clone the repository.
-2. Install required dependencies for both frontend and backend.
-3. Set up cloud services and API keys.
-4. Deploy on the chosen hosting platform.
-5. Run the application locally or deploy it for public access.
-

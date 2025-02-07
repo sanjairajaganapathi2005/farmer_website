@@ -26,5 +26,5 @@
    
 7. **/user-profile** (User Profile Page)
    - Allows users to create and manage profiles, saving their disease prediction history and previous crop recommendations.
-   - **Location and Weather Integration**: Users will be asked to input their location to receive weather-based recommendations and localized forecasts for crop health.
+   - Location and Weather Integration: Users will be asked to input their location to receive weather-based recommendations and localized forecasts for crop health.
 
