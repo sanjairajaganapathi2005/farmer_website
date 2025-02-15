@@ -1,0 +1,31 @@
+/* styles/crop.css */
+.crop-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .crop-container input,
+  .crop-container select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  
+  .crop-container button {
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #f57c00;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .crop-container button:hover {
+    background-color: #e65100;
+  }
+  

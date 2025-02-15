@@ -1,0 +1,30 @@
+/* styles/disease.css */
+.disease-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .disease-container input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  
+  .disease-container button {
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .disease-container button:hover {
+    background-color: #007bb5;
+  }
+  
