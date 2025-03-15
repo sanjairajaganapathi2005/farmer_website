@@ -3,10 +3,10 @@ import tensorflow as tf
 import pickle
 import numpy as np
 import os
-from flask_cors import CORS  # Enables frontend requests
+from flask_cors import CORS 
 
 app = Flask(__name__)
-CORS(app)  # Allow frontend to call API
+CORS(app)  
 
 # Load models
 model_disease = tf.keras.models.load_model("model/crop_disease.h5")

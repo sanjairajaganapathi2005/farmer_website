@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../styles/disease.css";
 
+const backend_url="http://localhost:5000/"
 const DiseasePrediction = () => {
     const [image, setImage] = useState(null);
     const [result, setResult] = useState("");
@@ -14,7 +15,7 @@ const DiseasePrediction = () => {
         const formData = new FormData();
         formData.append("image", image);
 
-        const { data } = await axios.post("http://localhost:5000/api/predict/disease", formData);
+        const { data } = await axios.post(`${backend_url}disease`, formData);
         setResult(data.disease);
     };
 
