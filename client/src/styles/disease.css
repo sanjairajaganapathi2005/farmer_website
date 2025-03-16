@@ -1,30 +1,67 @@
-/* styles/disease.css */
 .disease-container {
-    max-width: 500px;
-    margin: 50px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .disease-container input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-  }
-  
-  .disease-container button {
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #008CBA;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .disease-container button:hover {
-    background-color: #007bb5;
-  }
-  
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #13121252;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+
+/* Hide the default file input */
+input[type="file"] {
+  display: none;
+}
+
+.upload-button {
+  display: block;  
+  padding: 15px;
+  background: #27ae60;
+  width:50%;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 20%;
+  transition: background 0.3s ease-in-out;
+  margin-bottom: 25px; 
+}
+.upload-button:hover {
+  background: #219150;
+}
+
+.preview-container {
+  margin: 20px;
+}
+
+.preview-image {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Predict Button */
+.button {
+  display: block;  /* Ensures it takes up full width if needed */
+  margin: 15px auto 0; /* 15px space from the upload button */
+  padding: 12px 20px;
+  background: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease-in-out;
+}
+
+button:hover {
+  background: #1f6690;
+}
+
+

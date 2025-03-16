@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/auth.css";
 
-const backend_url="http://localhost:5000/"
+const backend_url = "http://localhost:5000/";
 const Register = () => {
     const [form, setForm] = useState({
         name: "",
@@ -23,6 +23,8 @@ const Register = () => {
             setError("Passwords do not match!");
             return;
         }
+
+        console.log("Form Data:", form);
 
         try {
             await axios.post(`${backend_url}auth/register`, {

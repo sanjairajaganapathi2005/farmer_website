@@ -1,31 +1,69 @@
-/* styles/crop.css */
-.crop-container {
-    max-width: 500px;
-    margin: 50px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+/* Global Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+form {
+  background: rgba(0, 0, 0, 0.315); 
+  padding: 30px;
+  margin-top: 1%;
+  margin-left:15%;
+  margin-right: 15%;
+  min-height: 45vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+
+/* Input Fields */
+input {
+  width: 40%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  text-align: center;
+  background: #f0f0f0;
+}
+
+/* Submit Button */
+button {
+  background: #FFD700;
+  color: #333;
+  font-size: 18px;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out;
+}
+
+button:hover {
+  background: #FFA500;
+}
+
+/* Output Section */
+.result {
+  margin-left: 25%;
+  font-size: 20px;
+  font-weight: bold;
+  background: #3a393946;
+  color: #f7f2f2;
+  padding: 10px;
+  border-radius: 5px;
+  width:50%;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container {
+      width: 90%;
   }
-  
-  .crop-container input,
-  .crop-container select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-  }
-  
-  .crop-container button {
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #f57c00;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .crop-container button:hover {
-    background-color: #e65100;
-  }
-  
+}

@@ -1,63 +1,111 @@
 from flask import Flask, request, jsonify
 import tensorflow as tf
-import pickle
 import numpy as np
-import os
-from flask_cors import CORS 
+from PIL import Image
+from flask_cors import CORS
+import io
+import pickle
 
 app = Flask(__name__)
-CORS(app)  
+CORS(app)
 
-# Load models
+# Load the trained model
 model_disease = tf.keras.models.load_model("model/crop_disease.h5")
-model_recommend = pickle.load(open("model/crop_recommend.pkl", "rb"))
 
-@app.route("/predict-disease", methods=["POST"])
+# Define a dictionary for disease class labels
+class_labels = {
+    0: "Apple Apple_scab", 1: "Apple Black rot", 2: "Apple Cedar_apple_rust", 3: "Apple healthy",
+    4: "Blueberry healthy", 5: "Cherry (including sour) Powdery mildew", 6: "Cherry (including sour) healthy",
+    7: "Corn (maize) Cercospora leaf spot Gray leaf spot", 8: "Corn (maize) Common rust", 9: "Corn (maize) Northern Leaf Blight",
+    10: "Corn (maize) healthy", 11: "Grape Black rot", 12: "Grape Leaf blight (Isariopsis Leaf Spot)", 13: "Grape healthy",
+    14: "Orange Haunglongbing (Citrus greening)", 15: "Peach Bacterial spot", 16: "Peach healthy",
+    17: "Pepper (bell) Bacterial spot", 18: "Pepper (bell) healthy", 19: "Potato Early blight",
+    20: "Potato Late blight", 21: "Potato healthy", 22: "Raspberry healthy", 23: "Soybean healthy",
+    24: "Squash Powdery mildew", 25: "Strawberry Leaf scorch", 26: "Strawberry healthy",
+    27: "Tomato Bacterial spot", 28: "Tomato Late blight", 29: "Tomato Leaf Mold",
+    30: "Tomato Septoria leaf spot", 31: "Tomato Spider mites (Two-spotted spider mite)",
+    32: "Tomato Target Spot", 33: "Tomato Yellow Leaf Curl Virus", 34: "Tomato Mosaic Virus",
+    35: "Tomato healthy"
+}
+
+@app.route("/disease-prediction", methods=["POST"])
 def predict_disease():
     try:
-        data = request.json
-        if "imagePath" not in data:
-            return jsonify({"error": "Missing imagePath field"}), 400
+        # Check if an image is uploaded
+        if "image" not in request.files:
+            return jsonify({"error": "No file uploaded"}), 400
 
-        image_path = data["imagePath"]
-        
-        if not os.path.exists(image_path):
-            return jsonify({"error": "Image file not found"}), 400
-        
-        img = tf.keras.preprocessing.image.load_img(image_path, target_size=(224, 224))
-        img_array = tf.keras.preprocessing.image.img_to_array(img) / 255.0
-        img_array = np.expand_dims(img_array, axis=0).astype("float32")
+        file = request.files["image"]
+
+        # Validate file type
+        if file.filename == "" or not file.filename.lower().endswith(("png", "jpg", "jpeg")):
+            return jsonify({"error": "Invalid file type"}), 400
+
+        # Read image file into memory
+        img = Image.open(io.BytesIO(file.read())).convert("RGB")
+        img = img.resize((100, 100))  # Resize to model's input size
+        img_array = np.array(img) / 255.0  # Normalize pixel values
+        img_array = np.expand_dims(img_array, axis=0).astype("float32")  # Expand dims for model input
+
+        # Log the shape of the image array
+        print("Image array shape:", img_array.shape)
 
         prediction = model_disease.predict(img_array)
-        predicted_class = int(np.argmax(prediction))
+        predicted_class = int(np.argmax(prediction))  # Get class index
 
-        return jsonify({"disease": predicted_class})
-    
+        # Map index to disease name using dictionary
+        predicted_label = class_labels.get(predicted_class, "Unknown Disease")
+
+        return jsonify({"disease": predicted_label})
+
     except Exception as e:
+        # Log the error
+        print("Error during prediction:", str(e))
         return jsonify({"error": str(e)}), 500
 
-@app.route("/recommend-crop", methods=["POST"])
+# Load the trained model and scaler for crop recommendation
+with open("model/rf_model.pkl", "rb") as model_file:
+    model = pickle.load(model_file)
+
+with open("model/minmaxscaler.pkl", "rb") as model_file:
+    scaler = pickle.load(model_file)
+
+# Crop dictionary for prediction output mapping
+crop_dict = {
+    1: "Rice", 2: "Maize", 3: "Jute", 4: "Cotton", 5: "Coconut",
+    6: "Papaya", 7: "Orange", 8: "Apple", 9: "Muskmelon", 10: "Watermelon",
+    11: "Grapes", 12: "Mango", 13: "Banana", 14: "Pomegranate", 15: "Lentil",
+    16: "Blackgram", 17: "Mungbean", 18: "Mothbeans", 19: "Pigeonpeas",
+    20: "Kidneybeans", 21: "Chickpea", 22: "Coffee"
+}
+
+@app.route('/recommend-crop', methods=['POST'])
 def recommend_crop():
     try:
         data = request.json
-        if "temperature" not in data or "season" not in data:
-            return jsonify({"error": "Missing temperature or season field"}), 400
+        features = np.array([
+            float(data["nitrogen"]),
+            float(data["phosphorus"]),
+            float(data["potassium"]),
+            float(data["temperature"]),
+            float(data["humidity"]),
+            float(data["soil_ph"]),
+            float(data["rainfall"])
+        ]).reshape(1, -1)
 
-        temperature = float(data["temperature"])
+        # Scale the input features
+        scaled_features = scaler.transform(features)
 
-        # Assuming "season" is categorical (e.g., "Winter", "Summer")
-        # Convert it into numerical encoding (you might need an actual mapping based on training data)
-        season_mapping = {"Winter": 0, "Summer": 1, "Rainy": 2}
-        season = season_mapping.get(data["season"], -1)
+        # Predict crop
+        prediction = model.predict(scaled_features)[0]
 
-        if season == -1:
-            return jsonify({"error": "Invalid season value"}), 400
+        # Get crop name from dictionary
+        recommended_crop = crop_dict.get(prediction, "No suitable crop found")
 
-        prediction = model_recommend.predict([[temperature, season]])
-        return jsonify({"crop": str(prediction[0])})
-
+        return jsonify({"recommended_crop": recommended_crop})
+    
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": str(e)})
 
 if __name__ == "__main__":
     app.run(debug=True)
