@@ -3,48 +3,38 @@
   width: 200px;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 70px;
+  margin-bottom: 20px; /* Reduced margin-bottom */
   border-radius: 8px;
-  padding: 100px;
-}
-
-.tab {
-  flex: 1;
-  text-align: center;
-  padding: 5px 0;
-  cursor: pointer;
-  font-size: 12px;
-  background-color: #e0e0e0;
-  border-radius: 5px;
-}
-
-.tab.current-tab {
-  background-color: #d6181e;
-  color: white;
+  padding: 10px; /* Reduced padding */
 }
 
 /* Weather container */
 .weather-container {
-  background-color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   padding: 10px;
   text-align: center;
-}
+  width: 300px;
+  height: 300px;
+  font-size: 28px;
+  padding: 20px ;
+  }
 
 /* Location and grant access style */
 .grant-location-container img {
-  width: 50px;
-  margin-bottom: 10px;
+  width: 100px;
+  height: 100px;
+  margin: 5px; 
 }
 
 .grant-location-container p {
-  font-size: 12px;
-  margin-bottom: 5px;
+  font-size: 28px;
+  margin: 10px  ;
 }
 
 .grant-location-container .btn {
-  font-size: 12px;
-  padding: 5px 10px;
+  font-size: 18px;
+  padding: 10px 20px;
   background-color: #d6181e;
   color: white;
   border: none;
@@ -53,12 +43,15 @@
 }
 
 /* Loading animation */
-.loading-container .loading-image {
-  width: 30px;
-}
-
 .loading-container p {
   font-size: 12px;
+  margin: 0; /* Remove any margin to reduce space */
+}
+
+p,h2 {
+  margin-top: 0;
+  margin-bottom: 0; 
+  padding: 5px; 
 }
 
 /* User weather information */
@@ -66,51 +59,43 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 5px;
 }
 
 .user-info-container .name img {
   width: 24px;
   height: 18px;
-  margin-left: 5px;
+  margin-right: 5px; /* Reduced margin-right */
 }
 
 .user-info-container p {
-  font-size: 12px;
+  font-size: 28px;
 }
 
 .user-info-container img {
-  width: 50px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  width: 90px;
+  margin: 0;
 }
 
 /* Parameter container for wind, humidity, cloud */
 .parameter-container {
   display: flex;
   justify-content: space-around;
+  margin-top: 5px; /* Reduced margin-top */
 }
 
 .parameter {
   text-align: center;
+  font-size: 28px;
 }
 
 .parameter img {
-  width: 20px;
+  width: 30px;
+  margin: 1px;
 }
 
 .parameter p {
-  font-size: 10px;
-  margin: 2px 0;
-}
-
-/* Search form */
-.form-container input {
-  width: 150px;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 12px;
+  margin: 1px;
+  font-size: 18px;
 }
 
 .form-container .btn {
@@ -123,5 +108,5 @@
 }
 
 .form-container img {
-  width: 12px;
+  width: 20px;
 }

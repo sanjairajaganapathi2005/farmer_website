@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../styles/home.css"; 
+import "../styles/home.css";
+import Whether from "./Whether";
 
 const Home = () => {
     return (
@@ -14,7 +15,7 @@ const Home = () => {
                 <div className="feature-box">
                     <h3>Predict Crop Disease 🦠</h3>
                     <p>
-                        Upload an image of your crop, and our AI-powered model will analyze it to detect any diseases, along with 
+                        Upload an image of your crop, and our AI-powered model will analyze it to detect any diseases, along with
                         recommendations for treatments.
                     </p>
                     <Link to="/predict-disease" className="button">
@@ -23,14 +24,18 @@ const Home = () => {
                 </div>
 
                 <div className="feature-box">
-                    <h3>Get Crop Recommendation 🌾</h3>
+                    <h3>Get 🌾Crop🌱 Recommendation</h3>
                     <p>
-                        Enter details such as soil type, temperature, and rainfall, and our system will suggest the best crops to grow 
+                        Enter details such as soil type, temperature, and rainfall, and our system will suggest the best crops to grow
                         based on real-time weather data.
                     </p>
                     <Link to="/recommend-crop" className="button">
                         Get Crop Recommendation
                     </Link>
+                </div>
+
+                <div className="whether">
+                    <Whether />
                 </div>
             </div>
 
@@ -38,8 +43,8 @@ const Home = () => {
 
             <h2>🌍 Why Choose Us?</h2>
             <p>
-                Our mission is to empower farmers with <b>AI-driven insights</b> to improve their crop health and yield. By leveraging 
-                modern <b>Machine Learning</b> models and real-time <b>Weather APIs</b>, we provide smart solutions for better 
+                Our mission is to empower farmers with <b>AI-driven insights</b> to improve their crop health and yield. By leveraging
+                modern <b>Machine Learning</b> models and real-time <b>Weather APIs</b>, we provide smart solutions for better
                 agricultural decisions.
             </p>
 

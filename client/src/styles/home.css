@@ -25,17 +25,21 @@ h1 {
 }
 
 h2 {
-  font-size: 28px;
-  margin-top: 30px;
+  font-size: 30px;
+  margin: 30px ;
 }
 
 h3 {
-  font-size: 22px;
+  font-size: 24px;
+}
+
+p{
+  font-size:20px;
 }
 
 /* Subtitle */
 .subtitle {
-  font-size: 18px;
+  font-size: 20px;
   color: #f1f1f1;
   max-width: 800px;
   margin: auto;
@@ -51,14 +55,22 @@ h3 {
   margin-top: 30px;
 }
 
+
+.feature-box h3{
+  text-align: center;
+
+}
+
 .feature-box {
   background: rgba(255, 255, 255, 0.1);
   padding: 20px;
   border-radius: 10px;
   max-width: 300px;
-  text-align: center;
+  text-align: justify;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
+
+
 
 .feature-box h3 {
   color: #f1f1f1;
@@ -103,10 +115,11 @@ h3 {
 /* Contact Section */
 .contact {
   margin-top: 40px;
+  font-size: 22px;
 }
 
 .contact p {
-  font-size: 16px;
+  font-size:24px;
   color: white;
 }
 

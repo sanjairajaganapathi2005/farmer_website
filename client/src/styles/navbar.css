@@ -3,7 +3,7 @@ nav {
   align-items: center;
   justify-content: space-between; /* Ensures items are spread out */
   background-color: #2c7a4b;
-  padding: 10px 20px;
+  padding: 20px 30px;
   color: white;
   font-family: 'Poppins', sans-serif;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -17,14 +17,15 @@ nav {
 }
 
 nav h2 {
-  font-size: 20px;
+  font-size: 24px;
   color:white;
 }
 
 nav a {
   color: white;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 18px;
+  font-weight: 600;
   transition: color 0.3s ease;
   padding: 5px 10px;
 }
@@ -35,10 +36,10 @@ nav a:hover {
 
 /* Logout Button */
 nav button {
-  background-color: #ff4d4d;
+  background-color: #f14848;
   border: none;
-  padding: 6px 12px;
-  font-size: 13px;
+  padding: 9px 18px;
+  font-size: 18px;
   font-weight: bold;
   color: white;
   border-radius: 5px;

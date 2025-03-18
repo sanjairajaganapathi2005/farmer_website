@@ -9,6 +9,10 @@
   font-family: 'Poppins', sans-serif;
 }
 
+.disease-container h2{
+  font-size: 28px;
+  margin: 10px;
+}
 
 /* Hide the default file input */
 input[type="file"] {
@@ -17,13 +21,13 @@ input[type="file"] {
 
 .upload-button {
   display: block;  
-  padding: 15px;
+  padding: 12px;
   background: #27ae60;
   width:50%;
   color: white;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: bold;
   margin-left: 20%;
   transition: background 0.3s ease-in-out;
@@ -54,9 +58,9 @@ input[type="file"] {
   color: white;
   border: none;
   border-radius: 6px;
-  font-size: 16px;
+  font-size: 20px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 1000;
   transition: background 0.3s ease-in-out;
 }
 

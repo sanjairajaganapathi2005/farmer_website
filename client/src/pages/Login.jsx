@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/auth.css";
 
-const backend_url = "http://localhost:5000/";
+const backend_url = import.meta.env.VITE_backend_url;
+;
 const Login = () => {
     const [form, setForm] = useState({ email: "", password: "" });
     const navigate = useNavigate();

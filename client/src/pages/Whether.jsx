@@ -6,9 +6,9 @@ import wind from "../assets/wind.png";
 import search from "../assets/search.png";
 import location from "../assets/location.png";
 import loadingimg from "../assets/loading.gif";
-import "./whether.css";
+import "../styles/whether.css";
 
-const API_KEY = "d1845658f92b31c64bd94f06f7188c9c";
+const API_KEY = import.meta.env.VITE_API_URL;
 
 const Weatherapp = () => {
   const [oldTab, setOldTab] = useState("userWeather");
@@ -48,7 +48,7 @@ const Weatherapp = () => {
       console.log(response.data); // Print weather data in cmd
 
       // Send the weather data to Node.js backend for saving to .txt and MongoDB
-      await axios.post("http://localhost:5000/saveWeatherData", response.data);
+      //await axios.post("http://localhost:5000/saveWeatherData", response.data);
     } catch (err) {
       console.error(err);
     }
@@ -65,7 +65,7 @@ const Weatherapp = () => {
       console.log(response.data); // Print weather data in cmd
 
       // Send the weather data to Node.js backend for saving to .txt and MongoDB
-      await axios.post("http://localhost:5000/saveWeatherData", response.data);
+      //await axios.post("http://localhost:5000/saveWeatherData", response.data);
     } catch (err) {
       console.error(err);
     }
@@ -104,23 +104,23 @@ const Weatherapp = () => {
         </div>
       )}
 
-      {loading && (
+      {/* {loading && (
         <div className="sub-container loading-container active">
           <img src={loadingimg} alt="Loading" className="loading-image" />
           <p>Loading</p>
         </div>
-      )}
+      )} */}
 
       {weatherInfo && (
         <div className="sub-container user-info-container active">
           <div className="name">
-            <p>{weatherInfo.name}</p>
+            <h2>{weatherInfo.name}</h2>
             <img
               src={`https://flagcdn.com/144x108/${weatherInfo.sys.country.toLowerCase()}.png`}
               alt="Country Flag"
             />
           </div>
-          <p>{weatherInfo.weather[0].description}</p>
+          {/* <p>{weatherInfo.weather[0].description}</p> */}
           <img
             src={`http://openweathermap.org/img/w/${weatherInfo.weather[0].icon}.png`}
             alt="Weather Icon"
@@ -146,7 +146,7 @@ const Weatherapp = () => {
         </div>
       )}
 
-      {oldTab === "searchWeather" && (
+      {/* {oldTab === "searchWeather" && (
         <form
           className="form-container active"
           onSubmit={(e) => {
@@ -164,7 +164,7 @@ const Weatherapp = () => {
             <img src={search} alt="Search" />
           </button>
         </form>
-      )}
+      )} */}
     </div>
   );
 };

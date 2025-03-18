@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../styles/crop.css";
 
-const flask_url = "http://localhost:5000/";
+const flask_url = import.meta.env.VITE_flask_url;
 
-const CropRecommendation = () => {
+const CropRecommendation = () => {          
     const [formData, setFormData] = useState({
         nitrogen: "",
         phosphorus: "",

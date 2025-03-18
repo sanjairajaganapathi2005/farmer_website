@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../styles/disease.css";
 
-const flask_url = "http://localhost:5000/";
+const flask_url = import.meta.env.VITE_flask_url;
 
 const DiseasePrediction = () => {
     const [image, setImage] = useState(null);
