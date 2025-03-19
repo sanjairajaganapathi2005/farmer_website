@@ -17,7 +17,7 @@ const Login = () => {
         try {
             const { data } = await axios.post(`${backend_url}auth/login`, form);
             localStorage.setItem("token", data.token);
-            navigate("/predict-disease");
+            navigate("/profile");
         } catch (error) {
             console.error("Login failed", error);
             alert("Invalid credentials. Please try again.");
