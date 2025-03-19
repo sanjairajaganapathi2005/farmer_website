@@ -104,12 +104,12 @@ const Weatherapp = () => {
         </div>
       )}
 
-      {/* {loading && (
+      {loading && (
         <div className="sub-container loading-container active">
           <img src={loadingimg} alt="Loading" className="loading-image" />
           <p>Loading</p>
         </div>
-      )} */}
+      )}
 
       {weatherInfo && (
         <div className="sub-container user-info-container active">
