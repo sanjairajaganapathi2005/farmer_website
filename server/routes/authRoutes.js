@@ -4,8 +4,10 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const router = express.Router();
+const dotenv = require("dotenv");
+dotenv.config();
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET ;
 
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
@@ -32,10 +34,12 @@ router.post("/login", async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: "Invalid Password" });
 
-    const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: "10h" });
+    const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: "12h" });
     res.json({ token });
+    console.log("login success");
   } catch (error) {
     res.status(500).json({ message: "Server error" });
+    console.log(error)
   }
 });
 
