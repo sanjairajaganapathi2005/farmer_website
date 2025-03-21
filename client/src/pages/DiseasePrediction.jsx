@@ -8,6 +8,8 @@ const DiseasePrediction = () => {
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState(null);
     const [result, setResult] = useState("");
+    const [explain, setExplain] = useState("");
+
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -35,6 +37,7 @@ const DiseasePrediction = () => {
         try {
             const { data } = await axios.post(`${flask_url}disease-prediction`, formData);
             setResult(data.disease);
+            setExplain(data.explain);
         } catch (error) {
             console.error("Error predicting disease:", error);
             setResult("Error predicting disease.");
@@ -60,7 +63,12 @@ const DiseasePrediction = () => {
 
             <button onClick={handleSubmit}>Predict</button>
 
-            {result && <h3>Predicted Disease: {result}</h3>}
+            {result && (
+                <>
+                    <h3>Predicted Disease: {result}</h3>
+                    <h5>explain : {explain}</h5 >
+                </>
+            )}
         </div>
     );
 };

@@ -5,14 +5,33 @@ from PIL import Image
 from flask_cors import CORS
 import io
 import pickle
+import os
+from dotenv import load_dotenv
+import google.generativeai as genai
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
+import google.generativeai as genai
+
+API_KEY = os.getenv("API_KEY")
+genai.configure(api_key=API_KEY)
+
+aimodel = genai.GenerativeModel("models/gemini-1.5-pro-latest")
+chat = aimodel.start_chat()
+
+def chat_bot(dis):
+    query = f"Explain about disease {dis} and give the precaution"
+    response = chat.send_message(query)
+    result = response.text
+    return result
+
 # Load the trained model
 model_disease = tf.keras.models.load_model("model/crop_disease.h5")
 
-# Define a dictionary for disease class labels
 class_labels = {
     0: "Apple Apple_scab", 1: "Apple Black rot", 2: "Apple Cedar_apple_rust", 3: "Apple healthy",
     4: "Blueberry healthy", 5: "Cherry (including sour) Powdery mildew", 6: "Cherry (including sour) healthy",
@@ -43,23 +62,22 @@ def predict_disease():
 
         # Read image file into memory
         img = Image.open(io.BytesIO(file.read())).convert("RGB")
-        img = img.resize((100, 100))  # Resize to model's input size
-        img_array = np.array(img) / 255.0  # Normalize pixel values
+        img = img.resize((100, 100)) 
+        img_array = np.array(img) / 255.0  
         img_array = np.expand_dims(img_array, axis=0).astype("float32")  # Expand dims for model input
 
-        # Log the shape of the image array
         print("Image array shape:", img_array.shape)
 
         prediction = model_disease.predict(img_array)
-        predicted_class = int(np.argmax(prediction))  # Get class index
+        predicted_class = int(np.argmax(prediction))  
 
-        # Map index to disease name using dictionary
         predicted_label = class_labels.get(predicted_class, "Unknown Disease")
+        
+        explain = chat_bot(predicted_label)
 
-        return jsonify({"disease": predicted_label})
+        return jsonify({"disease": predicted_label,"explain":explain})
 
     except Exception as e:
-        # Log the error
         print("Error during prediction:", str(e))
         return jsonify({"error": str(e)}), 500
 
@@ -70,7 +88,6 @@ with open("model/rf_model.pkl", "rb") as model_file:
 with open("model/minmaxscaler.pkl", "rb") as model_file:
     scaler = pickle.load(model_file)
 
-# Crop dictionary for prediction output mapping
 crop_dict = {
     1: "Rice", 2: "Maize", 3: "Jute", 4: "Cotton", 5: "Coconut",
     6: "Papaya", 7: "Orange", 8: "Apple", 9: "Muskmelon", 10: "Watermelon",
@@ -93,13 +110,10 @@ def recommend_crop():
             float(data["rainfall"])
         ]).reshape(1, -1)
 
-        # Scale the input features
         scaled_features = scaler.transform(features)
 
-        # Predict crop
         prediction = model.predict(scaled_features)[0]
 
-        # Get crop name from dictionary
         recommended_crop = crop_dict.get(prediction, "No suitable crop found")
 
         return jsonify({"recommended_crop": recommended_crop})
