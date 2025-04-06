@@ -46,6 +46,10 @@ class_labels = {
     32: "Tomato Target Spot", 33: "Tomato Yellow Leaf Curl Virus", 34: "Tomato Mosaic Virus",
     35: "Tomato healthy"
 }
+@app.route("/", methods=["GET"])
+def hello_world_1():
+    return jsonify({"msg": "Hello World"})
+
 
 @app.route("/disease-prediction", methods=["POST"])
 def predict_disease():
