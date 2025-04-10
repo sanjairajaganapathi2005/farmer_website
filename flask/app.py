@@ -9,13 +9,11 @@ import os
 from dotenv import load_dotenv
 import google.generativeai as genai
 
-# Load environment variables from .env file
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
-
-import google.generativeai as genai
+frontend_domain = os.getenv("FRONTEND_DOMAIN")
+CORS(app, origins=[frontend_domain])
 
 API_KEY = os.getenv("API_KEY")
 genai.configure(api_key=API_KEY)
@@ -29,7 +27,6 @@ def chat_bot(dis):
     result = response.text
     return result
 
-# Load the trained model
 model_disease = tf.keras.models.load_model("model/crop_disease.h5")
 
 class_labels = {

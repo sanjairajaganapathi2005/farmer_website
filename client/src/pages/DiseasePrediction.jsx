@@ -9,7 +9,7 @@ const DiseasePrediction = () => {
     const [preview, setPreview] = useState(null);
     const [result, setResult] = useState("");
     const [explain, setExplain] = useState("");
-
+    const [error, setError] = useState(""); // Add error state
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -36,11 +36,22 @@ const DiseasePrediction = () => {
 
         try {
             const { data } = await axios.post(`${flask_url}disease-prediction`, formData);
-            setResult(data.disease);
-            setExplain(data.explain);
+            
+            // Check if there was an error response from the backend
+            if (data.error) {
+                setError(data.error);  // Set error message
+                setResult("");         // Clear previous result
+                setExplain("");        // Clear previous explanation
+            } else {
+                setResult(data.disease);
+                setExplain(data.explain);
+                setError("");  // Clear any previous error
+            }
         } catch (error) {
             console.error("Error predicting disease:", error);
-            setResult("Error predicting disease.");
+            setError("Error predicting disease. Please try again later.");
+            setResult(""); // Clear previous result
+            setExplain(""); // Clear previous explanation
         }
     };
 
@@ -52,21 +63,32 @@ const DiseasePrediction = () => {
             <label htmlFor="file-upload" className="upload-button">
                 Upload Image
             </label>
-            <input id="file-upload" type="file" onChange={handleFileChange} accept="image/*" />
+            <input
+                id="file-upload"
+                type="file"
+                onChange={handleFileChange}
+                accept="image/*"
+            />
 
             {/* Image Preview */}
             {preview && (
                 <div className="preview-container">
-                    <img src={preview} alt="Uploaded Preview" className="preview-image" />
+                    <img
+                        src={preview}
+                        alt="Uploaded Preview"
+                        className="preview-image"
+                    />
                 </div>
             )}
 
             <button onClick={handleSubmit}>Predict</button>
 
+            {error && <div className="error-message">{error}</div>} {/* Display error message */}
+
             {result && (
                 <>
                     <h3>Predicted Disease: {result}</h3>
-                    <h5>explain : {explain}</h5 >
+                    <h5>Explain: {explain}</h5>
                 </>
             )}
         </div>
