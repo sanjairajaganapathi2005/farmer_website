@@ -17,9 +17,9 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-                <Route path="/predict-disease" element={<ProtectedRoute><DiseasePrediction /></ProtectedRoute>} />
-                <Route path="/recommend-crop" element={<ProtectedRoute><CropRecommendation /></ProtectedRoute>} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/predict-disease" element={<DiseasePrediction />} />
+                <Route path="/recommend-crop" element={<CropRecommendation />} />
             </Routes>
         </Router>
     );

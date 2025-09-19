@@ -18,11 +18,11 @@ CORS(app, origins=[frontend_domain])
 API_KEY = os.getenv("API_KEY")
 genai.configure(api_key=API_KEY)
 
-aimodel = genai.GenerativeModel("models/gemini-1.5-pro-latest")
+aimodel = genai.GenerativeModel('gemini-2.0-flash')
 chat = aimodel.start_chat()
 
 def chat_bot(dis):
-    query = f"Explain about disease {dis} and give the precaution"
+    query = f"Explain about disease {dis} and give the precaution in 5 lines clearly in simple way"
     response = chat.send_message(query)
     result = response.text
     return result
